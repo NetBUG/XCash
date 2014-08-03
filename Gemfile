@@ -9,18 +9,34 @@ gem 'rails', '4.1.4'
 gem 'pg'
 gem 'schema_plus'
 
+## Models
+gem 'enumerize'
+gem 'awesome_nested_set'
+
 ## Assets
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.0'
+
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'shoulda-matchers'
+end
+
+group :doc do
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0',        group: :doc
+  gem 'sdoc', '~> 0.4.0'
+  gem 'yard'
+  gem 'redcarpet'
+end
 
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-gem 'spring',      group: :development
+gem 'spring', group: :development
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
