@@ -1,0 +1,355 @@
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<title>Кассовый интерфейс</title>
+	<style>
+		div.menu {
+			width: 15%;
+			float: left;
+		}
+		div.main {
+			overflow: auto;
+			float: right;
+			width: 84%;
+		}
+		div.overtop {
+			position: absolute;
+			top: 10%;
+			left: 8%;
+			width: 84%;
+			height: 80%;
+			background: white;
+			z-index: 2;
+			text-align: center;
+		}
+		div.fade {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: black;
+			z-index: 1;
+		}
+		div.menuitem {
+			margin: 3Px;
+			background: #DDDDFF;
+			padding-top: 30Px;
+			padding-bottom: 30px;
+			padding: 15Px;
+		}
+		div.field {
+			display:inline;
+		}
+		div.price {
+			color: red;
+		}
+		.menulist_green, .menulist_yellow, .menulist_blue, .menulist_disabled {
+			text-align: center;
+			margin: 120Px;
+			padding: 20Px;
+			width: 300Px;
+			color: #448833;
+			background-color: #CCFFCC;
+			border: double 3Px #99AA88;
+		}
+		.menulist_yellow {
+			background: #FFF077;
+			color: #775500;
+			border-color: #DDAA00;
+		}
+		.menulist_blue {
+			background: #DDEEFF;
+			color: #330077;
+			border-color: #7700E0;
+		}
+		.menulist_disabled {
+			background: #EEEEEE;
+			color: #666666;
+			border-color: #999999;
+		}
+		.btn_active, .btn_inact {
+			text-align: center;
+			padding: 20Px;
+			width: 300Px;
+			color: #330000;
+			background-color: #CCC0DD;
+			border: double 3Px #BBAAAA;
+		}
+		.btn_inact {
+			color: #999999;
+			background-color: #DDDDDD;
+			border: double 3Px #AAAAAA;
+		}
+		.btn_pad {
+			padding: 20Pt;
+			background-color: #CCC0DD;
+			font-size: 32Pt;
+			text-align: center;
+		}
+		.sum {
+			background: #EEEEEE;
+			text-align: right;
+		}
+		.btn_ok {
+			background: #FFE0E0;
+			color: #FF7777;
+		}
+	</style>
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script>
+		var json = null;
+		var b_width = 4;	// in blocks, integer, >= 1
+		var stack = new Array();
+		var cart = new Array();
+
+		function init(handle, data, obj)
+		{
+			var node = "#menutbl";
+			if (data)
+			{
+				json = jQuery.parseJSON(data);
+				obj = json['recipes']
+				$("#nav").text("Главная");
+			} else {
+				var color = obj.color;
+				node += "_" + obj.recipe_id;
+				$("#menutbl").parent().append("<table data-name=\""+obj.name+"\" id=\""+node.replace("#", "")+"\" style=\"width: 100%; margin-top: 30Pt;\"></table>");
+				$(node).hide();
+				obj = obj['items'];
+			}
+			$(node).prepend('<tr></tr>');
+			for(rec in obj)
+			{
+				if (obj[rec].color != undefined)
+					color = obj[rec].color;
+				if (color == undefined)
+					color = 'green';
+				var name = obj[rec].name;
+				var num = obj[rec]['recipe_id'];
+				var price = obj[rec].price;
+				var pricerec = "";
+				var bush = false;
+				if (obj[rec]['items'])
+				{
+					bush = true;
+					name += " >>>";
+					//console.log(node + " -> " + name + ", entering... ");
+					init(false, false, obj[rec]);
+				} else {
+					if (price == 0)
+						pricerec = "Бесплатно";
+					else if (price != undefined)
+						pricerec = obj[rec].price + " p.";
+					else
+					{
+						color = 'disabled';
+						pricerec = "Закончилось";
+					}
+				}
+				//console.log(node + " -> " + name);
+				$(node).children().last().children().last().append("<td data-id=\""+num+"\" class=\"menulist_"+color+"\">"+name+"<div class=\"price\">"+pricerec+"</div></td>");
+				if (pricerec.length > 0)
+					$(node).children().last().children().last().children().last().attr('data-price', price);
+				if (bush || price != undefined)
+					$(node).children().last().children().last().children().last().click(function(handle){clk($(this));});
+				if (rec % b_width == b_width - 1)
+					$(node).children().last().parent().append('<tr></tr>');
+			}
+			$("#f_last").text(resolve_name(1));
+		}	// init()
+		
+		function getCurrentNode() {
+			node = "#menutbl";
+			if (stack.length > 0)
+				node += "_" + stack[stack.length - 1];
+			return node;
+		}
+		
+		function clk(elem)	{
+			var node_id = null;
+			if (elem != null)
+				node_id = elem.data('id');
+			var node = "#menutbl";
+			if (node_id != null)
+			{
+				node += "_"+node_id;	
+				if (elem.data('price') != null)
+					add(elem);
+				else {
+					$(getCurrentNode()).hide();
+					$("#btn_back").removeClass("btn_inact");
+					$("#btn_back").addClass("btn_active");
+					$(node).show();
+					stack.push(node_id);
+				}
+			} else
+			{
+				$("#btn_back").removeClass("btn_active");
+				$("#btn_back").addClass("btn_inact");
+				$(getCurrentNode()).hide();
+				node_id = stack.pop();
+				$(getCurrentNode()).show();
+			}
+		}	//clk
+		
+		function add(elem) {
+			var price = elem.data('price');
+			var id = elem.data('id');
+			var lcnt = 1;
+			for (elem in cart) 
+				if (cart[elem][0] == id)
+					{
+						lcnt = ++cart[elem][2];
+						price = undefined;
+					}
+			if (price != undefined)
+				cart.push([id, price, lcnt]);
+			update_cart();
+			$("#f_last").text(resolve_name(id));
+			$("#f_lcnt").text(lcnt);
+		}	// add
+		
+		function update_cart() {
+			cnt = 0;
+			price = 0;
+			for (elem in cart)
+			{
+				cnt += cart[elem][2];
+				price += cart[elem][2] * cart[elem][1];
+			}
+			$("#f_count").text(cnt);
+			$("#f_sum").text(price);
+		}	// update_cart
+		
+		function resolve_name(recipe_id, node) {
+			var f = null;
+			if (node == undefined)
+				node = json.recipes;
+			if (node.length > 0)
+			for (n in node)
+				if (node[n].recipe_id == recipe_id)
+					f = node[n].name;
+				else if (node[n].items != undefined)
+				{
+					t = resolve_name(recipe_id, node[n].items);
+					if (t != null)
+						f = t;
+				}
+			if (node == undefined && node == undefined)
+				f = "Неизвестно";
+			return f;
+		}	// resolve_name
+		
+		function show_cart() {
+			$(".overtop").show();
+			$(".fade").fadeTo(0, 0.7);
+			$("#carttbl").empty();
+			// Перехватить клавиатуру!
+			if (cart.length < 1)
+				$("#carttbl").append('<tr><td>Корзина пуста!</td></tr>');				
+			else
+			{
+				sum = 0;
+				$("#carttbl").append('<tr><td>Название</td><td>Цена</td><td>Кол-во</td><td>Итого</td></tr>');				
+				for (elem in cart) {
+					$("#carttbl").append('<tr><td>'+resolve_name(cart[elem][0])+'</td><td>'+cart[elem][1]+'</td><td>'+cart[elem][2]+'</td><td>'+(cart[elem][1]*cart[elem][2])+'</td></tr>');
+					sum += cart[elem][1]*cart[elem][2];
+				}
+				$("#carttbl").append('<tr><td>Итого</td><td colspan=3>'+sum+'</td></tr>');				
+			}
+		}	// show_cart
+		
+		function send_cart() {
+			cart.push($("#sum").text());
+			alert("sending..." + JSON.stringify(cart));
+			// Показать успех и сдачу!
+			$.get("?", JSON.stringify(cart), function(data, err) {alert("submission successful!"); $('.overtop').hide();cart = new Array();});
+		}	// send_cart
+		
+		function clk_cipher(node) {
+			var sum = $("#sum").text();
+			if (node.text() == "00")
+			{
+				if (sum != "0")
+					sum = sum + node.text();
+			}
+			else if (!isNaN(parseInt(node.text())))
+			{
+				if (sum == "0")
+					sum = "";
+				sum = sum + node.text();
+			} else if (node.text() == ".")
+				sum = sum + node.text();
+			else if (node.text() == "<")
+			{
+				sum = sum.substr(0, sum.length - 1);
+				if (sum.length < 1)
+					sum = "0";
+			}
+			else if (node.text() == "X")
+				sum = "0";
+			else console.log(node.text());
+			$("#sum").text(sum);
+		}
+
+		$(document).ready(function() {
+			$("#btn_back").click(function(){clk(null);});
+			$("#btn_print").click(function(){show_cart();});
+			$("#btn_ok").click(function(){send_cart();});
+			$(".btn_pad").click(function() {clk_cipher($(this))});
+			$(".overtop").hide();
+			$("#f_count").text(0);
+			$("#f_sum").text(0);
+			$("#f_lcnt").text(0);
+			$.ajaxSetup({ 
+				dataType: "text" , 
+				contentType: "application/json; charset=utf-8"
+			});			
+			$.get( "menu.json", function(data) {init(this, data)}); 
+		});
+	</script>
+</head>
+<body>
+	<div class="menu" id="c_menu">
+		<div class="menuitem">Закрыть смену</div>
+		<div class="menuitem">Отчёт X</div>
+		<div class="menuitem">Отчёт Z</div>
+		<div class="menuitem">Администрирование</div>
+	</div>
+	<div class="main" id="c_main">
+		<div>
+			<div id="btn_back" class="btn_inact" style="float: left;">Назад</div>
+			<div style="float: left; padding: 20Px; text-align: center;" id="nav">... </div>
+			<div style="float: left; padding: 20Px; text-align: center;">Сумма: <div id="f_sum" class="field"></div> p., <div id="f_count" class="field"></div> товаров<br />Последним добавлено: <div id="f_last" class="field"></div>, <div id="f_lcnt" class="field"> шт</div></div>
+			<div id="btn_print" class="btn_active" style="float: right;">Печать чека</div>
+		</div>
+		<table id="menutbl" style="width: 100%; margin-top: 30Pt;">
+		</table>
+	</div>
+	<div style="clear:both"></div>
+	<div class="overtop">
+		<table border="0" width="90%">
+			<tr>
+				<td width="60%" style="text-align: center;">
+					<table id="carttbl" style="width: 100%; margin-top: 30Pt;">
+					</table>
+				</td>
+				<td>
+					<table style="width: 100%; margin-top: 30Pt;">
+						<tr><td class="btn_pad">7</td><td class="btn_pad">8</td><td class="btn_pad">9</td></tr>
+						<tr><td class="btn_pad">4</td><td class="btn_pad">5</td><td class="btn_pad">6</td></tr>
+						<tr><td class="btn_pad">1</td><td class="btn_pad">2</td><td class="btn_pad">3</td></tr>
+						<tr><td class="btn_pad">0</td><td class="btn_pad">00</td><td class="btn_pad">&lt;</td></tr>
+						<tr><td class="btn_pad">.</td><td class="btn_pad">X</td><td></td></tr>
+						<tr><td class="btn_pad sum" id="sum" colspan=3>0</td></tr>
+						<tr><td class="btn_pad btn_ok" id="btn_ok" colspan=3>OK</td></tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="overtop fade"><div style="position: absolute; top: 5%; left: 91%;" onclick="$('.overtop').hide();">
+		<img src="http://www.designdownloader.com/item/pngl/cross_15/cross_15-20110903142132-00024.png" width="32" /></div></div>
+</body>
+</html>
