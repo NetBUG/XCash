@@ -1,0 +1,11 @@
+doctype html
+html
+  head
+    title
+      | XCash
+    = stylesheet_link_tag 'application', media: 'all'
+    = csrf_meta_tags
+  body
+    - flash.each do |kind, message|
+      .b-flash class="b-flash_#{kind}" = message
+    = yield
