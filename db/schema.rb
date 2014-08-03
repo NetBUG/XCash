@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140803232234) do
+ActiveRecord::Schema.define(version: 20140803233147) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,25 @@ ActiveRecord::Schema.define(version: 20140803232234) do
     t.index ["author_type", "author_id"], :name => "index_active_admin_comments_on_author_type_and_author_id"
     t.index ["namespace"], :name => "index_active_admin_comments_on_namespace"
     t.index ["resource_type", "resource_id"], :name => "index_active_admin_comments_on_resource_type_and_resource_id"
+  end
+
+  create_table "store_categories", force: true do |t|
+    t.string   "name"
+    t.string   "color"
+    t.boolean  "check_age",   default: false
+    t.boolean  "show_recipe", default: false
+    t.integer  "parent_id"
+    t.integer  "lft"
+    t.integer  "rgt"
+    t.integer  "depth"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["depth"], :name => "index_store_categories_on_depth"
+    t.index ["lft"], :name => "index_store_categories_on_lft"
+    t.index ["name", "parent_id"], :name => "index_store_categories_on_name_and_parent_id", :unique => true
+    t.index ["parent_id"], :name => "index_store_categories_on_parent_id"
+    t.index ["rgt"], :name => "index_store_categories_on_rgt"
+    t.foreign_key ["parent_id"], "store_categories", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_store_categories_parent_id"
   end
 
   create_table "users", force: true do |t|
