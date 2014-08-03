@@ -15,6 +15,12 @@ gem 'awesome_nested_set'
 gem 'state_machine'
 gem 'kaminari'
 
+## Authentication
+gem 'devise'
+
+## Authorization
+gem 'cancancan'
+
 ## Controllers
 gem 'aepic'
 gem 'inherited_resources'
