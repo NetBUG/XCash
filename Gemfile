@@ -12,6 +12,28 @@ gem 'schema_plus'
 ## Models
 gem 'enumerize'
 gem 'awesome_nested_set'
+gem 'state_machine'
+gem 'kaminari'
+
+## Controllers
+gem 'aepic'
+gem 'inherited_resources'
+gem 'responders'
+gem 'has_scope'
+
+## Views
+gem 'slim-rails'
+gem 'active_model_serializers'
+gem 'draper'
+
+## Management
+gem 'activeadmin', github: 'gregbell/active_admin'
+
+## I18n
+gem 'russian'
+
+## Configuration
+gem 'rails_config'
 
 ## Assets
 
