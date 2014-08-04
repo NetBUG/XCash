@@ -1,3 +1,3 @@
-class Stock::ConstituentSerializer < ActiveModel::Serializer
+class Stock::ConstituentSerializer < ApplicationSerializer
   attributes :id, :name, :amount, :measure
 end

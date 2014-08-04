@@ -1,3 +1,3 @@
-class Store::MenuSerializer < ActiveModel::Serializer
+class Store::MenuSerializer < ApplicationSerializer
   attributes :id, :name
 end
