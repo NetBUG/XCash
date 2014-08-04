@@ -13,7 +13,6 @@
 
 def import_category(html, category_scope = Store::Category.all)
   name = html.at_css('h1,h2,h3').try(:text)
-  puts name
   category = category_scope.where(name: name).first_or_create!
   child_categories = html.xpath('./div[@class="b-category"]')
   if child_categories.any?
@@ -43,8 +42,6 @@ def import_category(html, category_scope = Store::Category.all)
           constituents << constituent
         end
       end
-
-      puts attributes
 
       recipe = category.recipes.where(
         attributes.slice(:name),

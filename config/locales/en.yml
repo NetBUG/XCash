@@ -21,3 +21,10 @@
 
 en:
   hello: "Hello world"
+  recipes:
+    show:
+      free: "Free"
+  active_admin:
+    pages:
+      store: "Store"
+      stock: "Stock"

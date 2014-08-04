@@ -9,7 +9,11 @@ class Store::RecipeDecorator < ApplicationDecorator
   end
 
   def price
-    h.content_tag(:span, object.price, class: 'b-price')
+    if object.price.try(:>, 0.0)
+      h.content_tag(:span, object.price, class: 'b-price')
+    else
+      h.content_tag(:span, I18n.t('recipes.show.free'), class: 'b-cost')
+    end
   end
 
   def volume

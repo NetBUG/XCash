@@ -1,0 +1,8 @@
+ru:
+  recipes:
+    show:
+      free: "бесплатно"
+  active_admin:
+    pages:
+      store: "Бар"
+      stock: "Склад"

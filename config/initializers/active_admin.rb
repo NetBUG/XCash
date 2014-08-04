@@ -55,7 +55,7 @@ ActiveAdmin.setup do |config|
   #
   # This setting changes the method which Active Admin calls
   # within the application controller.
-  config.authentication_method = :authenticate_admin_user!
+  config.authentication_method = :authenticate_user!
 
   # == User Authorization
   #
@@ -95,13 +95,13 @@ ActiveAdmin.setup do |config|
   # will call the method to return the path.
   #
   # Default:
-  config.logout_link_path = :destroy_admin_user_session_path
+  config.logout_link_path = :destroy_user_session_path
 
   # This setting changes the http method used when rendering the
   # link. For example :get, :delete, :put, etc..
   #
   # Default:
-  # config.logout_link_method = :get
+  config.logout_link_method = :delete
 
 
   # == Root
@@ -195,11 +195,19 @@ ActiveAdmin.setup do |config|
   #
   # If you wanted to add a static menu item to the default menu provided:
   #
-  #   config.namespace :admin do |admin|
-  #     admin.build_menu :default do |menu|
-  #       menu.add label: "My Great Website", url: "http://www.mygreatwebsite.com", html_options: { target: :blank }
-  #     end
-  #   end
+  config.namespace :admin do |admin|
+    url_helpers = Rails.application.routes.url_helpers
+    admin.build_menu :default do |menu|
+      menu.add id: :store,
+               priority: 2,
+               label: proc { I18n.t('active_admin.pages.store') },
+               url: url_helpers.admin_store_categories_path
+      menu.add id: :stock,
+               priority: 3,
+               label: proc { I18n.t('active_admin.pages.stock') },
+               url: url_helpers.admin_stock_constituents_path
+    end
+  end
 
 
   # == Download Links

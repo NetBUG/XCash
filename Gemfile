@@ -38,6 +38,7 @@ gem 'activeadmin', github: 'gregbell/active_admin'
 
 ## I18n
 gem 'russian'
+gem 'devise-i18n'
 
 ## Configuration
 gem 'rails_config'
