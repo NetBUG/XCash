@@ -4,6 +4,6 @@ module Measurable
   included do
     extend Enumerize
 
-    enumerize :measure, in: %w(kg)
+    enumerize :measure, in: [:gram, :liter, :none], default: :none
   end
 end

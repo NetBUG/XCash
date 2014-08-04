@@ -1,4 +1,4 @@
-class Stock::ConstituentDecorator < Draper::Decorator
+class Stock::ConstituentDecorator < ApplicationDecorator
   delegate_all
 
   # Define presentation-specific methods here. Helpers are accessed through

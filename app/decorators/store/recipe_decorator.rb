@@ -1,13 +1,20 @@
-class Store::RecipeDecorator < Draper::Decorator
+class Store::RecipeDecorator < ApplicationDecorator
   delegate_all
 
-  # Define presentation-specific methods here. Helpers are accessed through
-  # `helpers` (aka `h`). You can override attributes, for example:
-  #
-  #   def created_at
-  #     helpers.content_tag :span, class: 'time' do
-  #       object.created_at.strftime("%a %m/%d/%y")
-  #     end
-  #   end
+  decorates_association :category
+  decorates_association :components
 
+  def name
+    h.content_tag(:span, object.name, class: 'b-name')
+  end
+
+  def price
+    h.content_tag(:span, object.price, class: 'b-price')
+  end
+
+  def volume
+    if object.volume > 0.0
+      h.content_tag(:span, amount, class: 'b-volume')
+    end
+  end
 end

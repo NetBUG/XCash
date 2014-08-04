@@ -1,0 +1,5 @@
+section.b-category
+  = category.name
+  = render category.children
+  - if category.recipes.any?
+    ul.b-items= render category.recipes

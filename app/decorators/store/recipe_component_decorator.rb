@@ -1,4 +1,4 @@
-class Store::RecipeComponentDecorator < Draper::Decorator
+class Store::RecipeComponentDecorator < ApplicationDecorator
   delegate_all
 
   # Define presentation-specific methods here. Helpers are accessed through

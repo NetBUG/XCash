@@ -1,0 +1,36 @@
+@import bootstrap
+
+.b-xception
+  @extend .container
+  .b-menu
+    @extend .row
+  .b-page
+    @extend .col-lg-5
+  .b-menu
+    .b-name
+      font-weight: bold
+    .b-volume
+      font-style: italic
+      &:before
+        content: ',\a0'
+      &:after
+        content: '\a0'
+    .b-contents
+      display: block
+    .b-cost
+      @extend .pull-right
+    .b-ruble
+      &:after
+        content: '\a0₷'
+    .b-price
+      @extend .pull-right
+      @extend .b-ruble
+    .b-amount
+      &:before
+        content: '\a0за\a0'
+    .b-items
+      //font-size: 120%
+      padding:
+        left: 0
+      &, & li
+        list-style: none
