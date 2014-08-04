@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140804011435) do
+ActiveRecord::Schema.define(version: 20140804051807) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 20140804011435) do
     t.integer  "constituent_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "show_in_menu",   default: false
     t.index ["constituent_id"], :name => "index_store_recipe_components_on_constituent_id"
     t.index ["recipe_id"], :name => "index_store_recipe_components_on_recipe_id"
     t.foreign_key ["constituent_id"], "stock_constituents", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_store_recipe_components_constituent_id"

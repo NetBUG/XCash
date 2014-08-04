@@ -13,8 +13,15 @@ class Store::RecipeDecorator < ApplicationDecorator
   end
 
   def volume
-    if object.volume > 0.0
+    if object.volume.present?
       h.content_tag(:span, amount, class: 'b-volume')
+    end
+  end
+
+  def components
+    components = object.shown_constituents.pluck(:name)
+    if components.any?
+      h.content_tag(:span, components.to_sentence, class: 'b-components')
     end
   end
 end

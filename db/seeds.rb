@@ -34,6 +34,16 @@ def import_category(html, category_scope = Store::Category.all)
         attributes[:measure] = :liter
       end
 
+      components = recipe_html.at_css('.b-contents').try(:text)
+      constituents = []
+      if components.present?
+        components = components.split(/,\s*/)
+        components.each do |component|
+          constituent = Stock::Constituent.where(name: component).first_or_create!
+          constituents << constituent
+        end
+      end
+
       puts attributes
 
       recipe = category.recipes.where(
@@ -41,6 +51,11 @@ def import_category(html, category_scope = Store::Category.all)
       ).first_or_initialize
 
       recipe.update_attributes(attributes)
+      constituents.each do |constituent|
+        component = recipe.components.where(constituent_id: constituent.id).first_or_initialize
+        component.show_in_menu = true
+        component.save
+      end
     end
   end
 end

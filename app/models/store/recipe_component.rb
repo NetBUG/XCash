@@ -4,4 +4,7 @@ class Store::RecipeComponent < ActiveRecord::Base
 
   validates :recipe, :constituent, presence: true
   validates :constituent_id, uniqueness: {scope: :recipe_id}
+
+  scope :shown_in_menu, -> { where(show_in_menu: true) }
+  scope :for_menu, -> { shown_in_menu.includes(:constituent) }
 end

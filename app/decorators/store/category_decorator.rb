@@ -1,8 +1,8 @@
 class Store::CategoryDecorator < ApplicationDecorator
   delegate_all
 
-  decorates_association :children
-  decorates_association :recipes
+  decorates_association :children, with: Store::CategoryDecorator
+  decorates_association :recipes, with: Store::RecipeDecorator
 
   def name
     h.content_tag(header_tag, object.name)
