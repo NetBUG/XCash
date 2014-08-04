@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140804001750) do
+ActiveRecord::Schema.define(version: 20140804011214) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,8 @@ ActiveRecord::Schema.define(version: 20140804001750) do
     t.boolean  "show_recipe", default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "amount",      default: 0.0
+    t.string   "measure"
     t.index ["category_id"], :name => "index_store_recipes_on_category_id"
     t.foreign_key ["category_id"], "store_categories", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_store_recipes_category_id"
   end
