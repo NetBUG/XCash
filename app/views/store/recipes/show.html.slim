@@ -1,0 +1,10 @@
+article.b-recipe
+  h1= resource.name
+  = debug resource
+  - if resource.components.any?
+    section
+      h2 = t('.components')
+  - resource.components.each do |component|
+    li
+      strong = component.name
+      i= component.volume

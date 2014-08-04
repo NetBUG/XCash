@@ -1,11 +1,10 @@
 Rails.application.routes.draw do
   namespace :store do
-    resources :menus
-  end
-
-  namespace :store do
+    resources :menus do
+      resources :menu_items
+    end
     resources :categories do
-      resources :recipes do
+      resources :recipes, shallow: true do
         resources :recipe_components
       end
     end

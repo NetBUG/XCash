@@ -19,12 +19,6 @@
       display: block
     .b-cost
       @extend .pull-right
-    .b-ruble
-      &:after
-        content: '\a0₷'
-    .b-price
-      @extend .pull-right
-      @extend .b-ruble
     .b-amount
       &:before
         content: '\a0за\a0'
@@ -34,3 +28,6 @@
         left: 0
       &, & li
         list-style: none
+
+@import blocks/ruble
+@import blocks/price

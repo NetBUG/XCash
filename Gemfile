@@ -9,6 +9,7 @@ gem 'rails', '4.1.4'
 gem 'pg'
 gem 'schema_plus'
 gem 'nokogiri'
+gem 'google_drive'
 
 ## Models
 gem 'enumerize'

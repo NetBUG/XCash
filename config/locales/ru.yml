@@ -1,4 +1,10 @@
 ru:
+  enumerize:
+    defaults:
+      measure:
+        liter: л
+        gram: г
+        none: ''
   recipes:
     show:
       free: "бесплатно"
@@ -6,3 +12,7 @@ ru:
     pages:
       store: "Бар"
       stock: "Склад"
+  store:
+    recipes:
+      show:
+        components: "Ингредиенты:"

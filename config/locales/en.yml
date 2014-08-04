@@ -21,10 +21,20 @@
 
 en:
   hello: "Hello world"
-  recipes:
-    show:
-      free: "Free"
+  enumerize:
+    defaults:
+      measure:
+        liter: l.
+        gram: g
+        none: ''
   active_admin:
     pages:
       store: "Store"
       stock: "Stock"
+  recipes:
+    show:
+      free: "Free"
+  store:
+    recipes:
+      show:
+        components: "Components"

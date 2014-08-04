@@ -22,7 +22,7 @@ class Store::RecipeDecorator < ApplicationDecorator
     end
   end
 
-  def components
+  def component_list
     components = object.shown_constituents.pluck(:name)
     if components.any?
       h.content_tag(:span, components.to_sentence, class: 'b-components')
