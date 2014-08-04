@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140804011214) do
+ActiveRecord::Schema.define(version: 20140804011435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,19 @@ ActiveRecord::Schema.define(version: 20140804011214) do
     t.string   "measure"
     t.index ["category_id"], :name => "index_store_recipes_on_category_id"
     t.foreign_key ["category_id"], "store_categories", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_store_recipes_category_id"
+  end
+
+  create_table "store_recipe_components", force: true do |t|
+    t.integer  "recipe_id"
+    t.decimal  "amount",         default: 0.0
+    t.string   "measure"
+    t.integer  "constituent_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["constituent_id"], :name => "index_store_recipe_components_on_constituent_id"
+    t.index ["recipe_id"], :name => "index_store_recipe_components_on_recipe_id"
+    t.foreign_key ["constituent_id"], "stock_constituents", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_store_recipe_components_constituent_id"
+    t.foreign_key ["recipe_id"], "store_recipes", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_store_recipe_components_recipe_id"
   end
 
   create_table "users", force: true do |t|
