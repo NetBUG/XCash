@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140804105221) do
+ActiveRecord::Schema.define(version: 20140804110011) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,6 +95,19 @@ ActiveRecord::Schema.define(version: 20140804105221) do
     t.string   "state"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "store_order_items", force: true do |t|
+    t.integer  "order_id"
+    t.integer  "recipe_id"
+    t.integer  "amount",     default: 1
+    t.decimal  "cost",       default: 0.0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["order_id"], :name => "index_store_order_items_on_order_id"
+    t.index ["recipe_id"], :name => "index_store_order_items_on_recipe_id"
+    t.foreign_key ["order_id"], "store_orders", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_store_order_items_order_id"
+    t.foreign_key ["recipe_id"], "store_recipes", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_store_order_items_recipe_id"
   end
 
   create_table "store_recipe_components", force: true do |t|
