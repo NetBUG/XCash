@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  namespace :stock do
+    resources :constituents
+  end
+
   namespace :store do
     resources :recipes
   end

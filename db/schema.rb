@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140803234523) do
+ActiveRecord::Schema.define(version: 20140804001750) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,15 @@ ActiveRecord::Schema.define(version: 20140803234523) do
     t.index ["author_type", "author_id"], :name => "index_active_admin_comments_on_author_type_and_author_id"
     t.index ["namespace"], :name => "index_active_admin_comments_on_namespace"
     t.index ["resource_type", "resource_id"], :name => "index_active_admin_comments_on_resource_type_and_resource_id"
+  end
+
+  create_table "stock_constituents", force: true do |t|
+    t.string   "name"
+    t.decimal  "amount",     default: 0.0
+    t.string   "measure"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["name"], :name => "index_stock_constituents_on_name", :unique => true
   end
 
   create_table "store_categories", force: true do |t|
