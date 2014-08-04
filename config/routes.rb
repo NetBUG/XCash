@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   namespace :store do
+    resources :orders
     resources :menus do
       resources :menu_items
     end
