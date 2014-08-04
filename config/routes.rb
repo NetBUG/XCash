@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   namespace :store do
+    resources :recipes
+  end
+
+  namespace :store do
     resources :categories
   end
 

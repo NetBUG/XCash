@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140803233147) do
+ActiveRecord::Schema.define(version: 20140803234523) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,19 @@ ActiveRecord::Schema.define(version: 20140803233147) do
     t.index ["parent_id"], :name => "index_store_categories_on_parent_id"
     t.index ["rgt"], :name => "index_store_categories_on_rgt"
     t.foreign_key ["parent_id"], "store_categories", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_store_categories_parent_id"
+  end
+
+  create_table "store_recipes", force: true do |t|
+    t.string   "name"
+    t.integer  "category_id"
+    t.decimal  "price"
+    t.string   "color"
+    t.boolean  "check_age",   default: false
+    t.boolean  "show_recipe", default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["category_id"], :name => "index_store_recipes_on_category_id"
+    t.foreign_key ["category_id"], "store_categories", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_store_recipes_category_id"
   end
 
   create_table "users", force: true do |t|
