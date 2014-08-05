@@ -106,6 +106,7 @@ GEM
     has_scope (0.6.0.rc)
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
+    high_voltage (2.2.1)
     hike (1.2.3)
     i18n (0.6.11)
     inherited_resources (1.4.1)
@@ -261,6 +262,7 @@ DEPENDENCIES
   factory_girl_rails
   google_drive
   has_scope
+  high_voltage
   inherited_resources
   kaminari
   nokogiri

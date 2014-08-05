@@ -43,6 +43,9 @@ gem 'russian'
 ## Configuration
 gem 'rails_config'
 
+## Static
+gem 'high_voltage'
+
 ## Assets
 
 # Use SCSS for stylesheets
