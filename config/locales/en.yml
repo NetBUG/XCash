@@ -27,10 +27,6 @@ en:
         liter: l.
         gram: g
         none: ''
-  active_admin:
-    pages:
-      store: "Store"
-      stock: "Stock"
   recipes:
     show:
       free: "Free"

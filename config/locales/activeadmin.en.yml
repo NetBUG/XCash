@@ -117,3 +117,6 @@ en:
       block: "List"
       grid: "Grid"
       blog: "Blog"
+    pages:
+      store: "Store"
+      stock: "Stock"
