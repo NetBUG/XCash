@@ -4,11 +4,11 @@ class Store::RecipeDecorator < ApplicationDecorator
   decorates_association :category
   decorates_association :components
 
-  def name
+  def html_name
     h.content_tag(:span, object.name, class: 'b-name')
   end
 
-  def price
+  def html_price
     if object.price.try(:>, 0.0)
       h.content_tag(:span, object.price, class: 'b-price')
     else
@@ -16,13 +16,13 @@ class Store::RecipeDecorator < ApplicationDecorator
     end
   end
 
-  def volume
+  def html_volume
     if object.volume.present?
-      h.content_tag(:span, amount, class: 'b-volume')
+      h.content_tag(:span, (amount * 1000).round().to_s + " ml", class: 'b-volume')
     end
   end
 
-  def component_list
+  def html_component_list
     components = object.shown_constituents.pluck(:name)
     if components.any?
       h.content_tag(:span, components.to_sentence, class: 'b-components')
