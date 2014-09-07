@@ -11,6 +11,9 @@ gem 'schema_plus'
 gem 'nokogiri'
 gem 'google_drive'
 
+# Easy export of db
+gem 'yaml_db',  github: 'jetthoughts/yaml_db', ref: 'fb4b6bd7e12de3cffa93e0a298a1e5253d7e92ba'
+
 ## Models
 gem 'enumerize'
 gem 'awesome_nested_set'
