@@ -3,5 +3,5 @@ class Stock::Constituent < ActiveRecord::Base
 
   has_many :recipe_components, class_name: 'Store::RecipeComponent', inverse_of: :constituent
 
-  validates :name, presence: true, uniqueness: true
+  #validates :name, presence: true, uniqueness: true
 end

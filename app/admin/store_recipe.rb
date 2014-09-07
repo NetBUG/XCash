@@ -3,6 +3,8 @@ ActiveAdmin.register Store::Recipe do
 
   decorate_with 'Store::RecipeDecorator'
 
+  permit_params :category, :name, :price, :color, :check_age, :show_recipe, :amount, :measure
+
   # See permitted parameters documentation:
   # https://github.com/gregbell/active_admin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #

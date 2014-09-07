@@ -1,6 +1,7 @@
 ActiveAdmin.register Store::RecipeComponent do
   menu parent: :store
 
+  permit_params :recipe_id, :constituent_id, :amount, :measure, :show_in_menu
 
   # See permitted parameters documentation:
   # https://github.com/gregbell/active_admin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters

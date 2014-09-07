@@ -14,5 +14,6 @@ ActiveAdmin.register Store::MenuItem do
   #  permitted
   # end
 
+  permit_params :name, :recipe_id, :menu_id
 
 end

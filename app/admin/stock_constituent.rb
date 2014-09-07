@@ -14,6 +14,6 @@ ActiveAdmin.register Stock::Constituent do
   #  permitted << :other if resource.something?
   #  permitted
   # end
-
+  permit_params :name, :amount, :measure
 
 end

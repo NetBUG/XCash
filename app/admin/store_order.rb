@@ -14,5 +14,6 @@ ActiveAdmin.register Store::Order do
   #  permitted
   # end
 
+  permit_params :cost, :state
 
 end

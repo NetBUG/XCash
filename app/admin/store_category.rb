@@ -8,11 +8,11 @@ ActiveAdmin.register Store::Category do
   #
   # or
   #
-  # permit_params do
-  #  permitted = [:permitted, :attributes]
-  #  permitted << :other if resource.something?
-  #  permitted
-  # end
+  permit_params do
+    permitted = [:parent_id, :name, :color, :check_age, :show_recipe, :lft, :rgt, :depth]
+    #permitted << :other if resource.something?
+    #permitted
+  end
 
 
 end

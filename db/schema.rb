@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 20140805180319) do
     t.decimal  "amount",      default: 0.0
     t.string   "measure"
     t.index ["category_id"], :name => "index_store_recipes_on_category_id"
+    t.index ["name", "category_id"], :name => "index_store_recipes_on_name_and_category_id", :unique => true
     t.foreign_key ["category_id"], "store_categories", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_store_recipes_category_id"
   end
 

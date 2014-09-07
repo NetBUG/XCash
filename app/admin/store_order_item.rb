@@ -1,6 +1,7 @@
 ActiveAdmin.register Store::OrderItem do
   menu parent: :store
 
+  permit_params :order, :recipe, :amount, :cost
 
   # See permitted parameters documentation:
   # https://github.com/gregbell/active_admin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters

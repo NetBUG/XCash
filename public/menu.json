@@ -1,0 +1,134 @@
+{
+	"version": "1.0.0a1",
+	"recipes": [{
+		"recipe_id": "1",
+		"name": "Супы",
+		"color": "green",
+		"items": [{
+			"recipe_id": "2",
+			"name": "Морковный",
+			"price": "60",
+			"serve": "dish_deep.png",
+			"components": [{
+				"ware_id": "1",
+				"title": "Морковь",
+				"amount": "0.1",
+				"measure": "кг"
+			}, {
+				"ware_id": "5",
+				"title": "Зажарка",
+				"amount": "10",
+				"measure": "г"
+			}]
+		}, {
+			"recipe_id": "3",
+			"name": "Mushroom cream soup",
+			"price": "80",
+			"components": [{
+				"ware_id": "3",
+				"title": "Dry mushrooms",
+				"amount": "0.03",
+				"measure": "kg"
+			}, {
+				"ware_id": "5",
+				"title": "Зажарка",
+				"amount": "10",
+				"measure": "г"
+			}]
+		}]
+	}, {
+		"recipe_id": "10",
+		"name": "Закуски",
+		"color": "yellow",
+		"items": [{
+			"recipe_id": "7",
+			"name": "Картофель фри",
+			"price": "80",
+			"components": [{
+				"ware_id": "8",
+				"title": "Картофель фри замороженный",
+				"amount": "0.15",
+				"measure": "кг"
+			}, {
+				"ware_id": "5",
+				"title": "Соль",
+				"amount": "3",
+				"measure": "г"
+			}]
+		}]
+	}, {
+		"recipe_id": "5",
+		"name": "Still water",
+		"price": "0",
+		"color": "blue",
+		"serve": "glass_med.png",
+		"components": [{
+			"ware_id": "9",
+			"title": "Water",
+			"amount": "0.3",
+			"measure": "l"
+		}]
+	}, {
+		"recipe_id": "51",
+		"name": "Sparkling water",
+		"color": "blue",
+		"components": [{
+			"ware_id": "9",
+			"title": "Water",
+			"amount": "0.3",
+			"measure": "l"
+		}]
+	}, {
+		"recipe_id": "100",
+		"name": "Алкоголь",
+		"color": "blue",
+		"items": [{
+			"recipe_id": "2",
+			"name": "Зелёная фея",
+			"price": "360",
+			"color": "green",
+			"showrecipe": "true",
+			"agecheck": "true",
+			"components": [{
+				"ware_id": "10",
+				"title": "Абсент",
+				"amount": "30",
+				"measure": "мл"
+			}, {
+				"ware_id": "15",
+				"title": "Водка",
+				"amount": "60",
+				"measure": "мл"
+			}]
+		}, {
+			"recipe_id": "3",
+			"name": "Пиво Жигулёвское",
+			"price": "180",
+			"color": "green",
+			"showrecipe": "true",
+			"agecheck": "true",
+			"components": [{
+				"ware_id": "3",
+				"title": "Dry mushrooms",
+				"amount": "0.03",
+				"measure": "kg"
+			}, {
+				"ware_id": "5",
+				"title": "Зажарка",
+				"amount": "10",
+				"measure": "г"
+			}]
+		}]
+	}, {
+		"recipe_id": "51",
+		"name": "Йад",
+		"price": "1000",
+		"color": "blue",
+		"components": [{
+			"ware_id": "9",
+			"title": "Water",
+			"amount": "0.3",
+			"measure": "l"
+		}]
+	}]
+}
