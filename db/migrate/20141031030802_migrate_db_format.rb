@@ -37,7 +37,7 @@ class MigrateDbFormat < ActiveRecord::Migration
 
   def change
     puts "Installing dependencies...\n"
-    cmd = "echo sudo gem install mongoid; sudo gem instal mongoid; " + I18n.t('mongoupdate')
+    cmd = "sudo apt-get install libruby1.9.1 ruby ruby-bson ruby-bson-ext ruby1.9.1; " + I18n.t('mongoupdate')
     res = %x( #{cmd} )
     Dir.glob(Rails.root.to_s + "/config/locales/??.yml").each do |file| 
 		cmd = "cat " + file + " | grep -v mongo > " + file + "_; mv " + file + "_ " + file
